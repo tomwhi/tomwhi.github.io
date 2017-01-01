@@ -144,7 +144,7 @@ Rigorous quantification of something as hard-to-define as human culture has impo
 Word vectors are, indeed, very cool. But [thought vectors](https://arxiv.org/abs/1506.06726) - that, my friends, is the shit! The ability to quantify individual thoughts could be a boon to humanity when coupled with good visualisation techniques. They could (for example) be used to augment human's understanding of various topics, granting permanence and elucidating what is otherwise ephemeral and complex.
 
 # Motivation
-So, why did I do all this? A few reasons. I am currently (2017) employed as a bioinformatician, analysing genomics sequence data. It's an ongoing position, and quite interesting. I've [delivered](https://scholar.google.co.uk/citations?user=1280JtcAAAAJ&hl=en) research at the top level in the field over the years, including two first author Nature Genetics papers. But I'm thinking about shifting fields, given the amazing developments in NLP and deep learning over the past couple of years. I believe I have the technical chops, background and drive to deliver in this area at the top level, and I did this project in order to provide evidence of this. If you have or know of opportunities in this field, feel free to contact me by email. Address: thomaswhitington AT gmail DOT com. I'm based in Stockholm, Sweden.
+So, why did I do all this? A few reasons. I am currently (2017) employed as a bioinformatician, analysing genomics sequence data. It's an ongoing position, and quite interesting. I've [delivered](https://scholar.google.co.uk/citations?user=1280JtcAAAAJ&hl=en) research at the top level in the field over the years, including two co-first author Nature Genetics papers. Nevertheless, I'm considering shifting fields, given the amazing developments in NLP and deep learning over the past couple of years. I believe I have the technical ability and background to deliver in this area, and I did this project in order to demonstrate this.
 
 # Acknowledgements
 I wish to thank [Mattias Östmar](https://twitter.com/mattiasostmar) and [Mikael Huss](https://twitter.com/mikaelhuss), who provided great insights and feedback throughout the project.
@@ -169,4 +169,4 @@ Finally, the least-translatable 72 (10% of all) English word clusters also inclu
 ![PC plot 2](/images/WordVectors/Misc_Or_For_Appendix.svg)
 
 # Comments
-Comments and discussion are very welcome, please post below!
+Comments and discussion are very welcome, I will be implementing this shortly.
