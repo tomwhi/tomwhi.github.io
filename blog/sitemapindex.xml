@@ -7,18 +7,18 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>https://tomwhi.github.io/galleries/demo/rss.xml</loc>
-  <lastmod>2017-01-01T15:48:00Z</lastmod>
+  <lastmod>2017-01-01T16:35:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://tomwhi.github.io/galleries/rss.xml</loc>
-  <lastmod>2017-01-01T15:48:00Z</lastmod>
+  <lastmod>2017-01-01T16:35:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://tomwhi.github.io/rss.xml</loc>
-  <lastmod>2017-01-01T16:05:00Z</lastmod>
+  <lastmod>2017-01-01T16:35:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://tomwhi.github.io/sitemap.xml</loc>
-  <lastmod>2017-01-01T16:05:00Z</lastmod>
+  <lastmod>2017-01-01T16:35:00Z</lastmod>
  </sitemap>
 </sitemapindex>

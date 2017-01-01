@@ -160,13 +160,13 @@ There are also some obvious artefacts in the final results. For example, several
 
 *Figure 11: Artefact word clusters - foreign language clusters*
 
-![PC plot 2](/images/WordVectors/Language_Artefact_clusters_fixed.png)
+![PC plot 2](/images/WordVectors/Language_Artefact_clusters.svg)
 
 Finally, the least-translatable 72 (10% of all) English word clusters also included some results that seem to reflect culture in some way, which didn't fit into the main results section above. Here they are:
 
 *Figure 12: Additional results of interest*
 
-![PC plot 2](/images/WordVectors/Misc_Or_For_Appendix.png)
+![PC plot 2](/images/WordVectors/Misc_Or_For_Appendix.svg)
 
 # Comments
 Comments and discussion are very welcome, please post below!
