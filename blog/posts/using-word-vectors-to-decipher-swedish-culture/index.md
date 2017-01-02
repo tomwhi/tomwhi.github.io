@@ -167,6 +167,3 @@ Finally, the least-translatable 72 (10% of all) English word clusters also inclu
 *Figure 12: Additional results of interest*
 
 ![PC plot 2](/images/WordVectors/Misc_Or_For_Appendix.svg)
-
-# Comments
-Comments and discussion are very welcome, I will be implementing this shortly.
