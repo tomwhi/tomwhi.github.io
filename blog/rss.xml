@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Tom's Data Science Blog</title><link>https://tomwhi.github.io/</link><description>Tom's Data Science Blog</description><atom:link rel="self" href="https://tomwhi.github.io/rss.xml" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Mon, 02 Jan 2017 07:07:18 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Using word vectors to decipher Swedish culture</title><link>https://tomwhi.github.io/posts/using-word-vectors-to-decipher-swedish-culture/</link><dc:creator>Tom Whitington</dc:creator><description>&lt;div&gt;&lt;h2&gt;Intro&lt;/h2&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Tom's Data Science Blog</title><link>https://tomwhi.github.io/</link><description>Tom's Data Science Blog</description><atom:link type="application/rss+xml" rel="self" href="https://tomwhi.github.io/rss.xml"></atom:link><language>en</language><lastBuildDate>Sun, 01 Jan 2017 21:32:15 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Using word vectors to decipher Swedish culture</title><link>https://tomwhi.github.io/posts/using-word-vectors-to-decipher-swedish-culture/</link><dc:creator>Tom Whitington</dc:creator><description>&lt;div&gt;&lt;h2&gt;Intro&lt;/h2&gt;
 &lt;p&gt;Can culture be quantified? Taking for example a statement like:&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;"Society has become more liberal over the years."&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;or&lt;/p&gt;
@@ -91,13 +91,5 @@
 &lt;p&gt;Finally, the least-translatable 72 (10% of all) English word clusters also included some results that seem to reflect culture in some way, which didn't fit into the main results section above. Here they are:&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Figure 12: Additional results of interest&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="PC plot 2" src="https://tomwhi.github.io/images/WordVectors/Misc_Or_For_Appendix.svg"&gt;&lt;/p&gt;
-&lt;script&gt;
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-89681522-1', 'auto');
-  ga('send', 'pageview');
-
-&lt;/script&gt;&lt;/div&gt;</description><guid>https://tomwhi.github.io/posts/using-word-vectors-to-decipher-swedish-culture/</guid><pubDate>Sun, 01 Jan 2017 16:01:43 GMT</pubDate></item></channel></rss>
+&lt;h2&gt;Comments&lt;/h2&gt;
+&lt;p&gt;Comments and discussion are very welcome, I will be implementing this shortly.&lt;/p&gt;&lt;/div&gt;</description><guid>https://tomwhi.github.io/posts/using-word-vectors-to-decipher-swedish-culture/</guid><pubDate>Sun, 01 Jan 2017 16:01:43 GMT</pubDate></item></channel></rss>
