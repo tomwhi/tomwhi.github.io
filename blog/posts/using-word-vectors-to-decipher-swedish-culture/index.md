@@ -48,7 +48,7 @@ I produced word vectors and a transformation matrix through the following steps:
 * <a href="https://github.com/tomwhi/nlp-stuff/blob/master/run_microsoft_translation.py" target="_blank">Obtaining translations</a> for the most frequent words using the Microsoft translation API, to use for training the transformation matrix, and [retrieving](https://github.com/tomwhi/nlp-stuff/blob/master/retrieve_training_vectors.py) corresponding word vector pairs.
 * <a href="https://github.com/tomwhi/nlp-stuff/blob/master/derive_translation_matrix.py" target="_blank">Training</a> the transformation matrix, by implementing gradient descent with the loss function defined in <a href="https://arxiv.org/abs/1309.4168" target="_blank">Mikolov _et al._</a>:
 
-![equation](/images/WordVectors/Equation.png)
+<script type="math/tex; mode=display" id="MathJax-Element">\min_{W} \sum_{i=1}^{n} \|Wx_i-z_i\|^2</script>
 
 * Here, _W_ is the translation matrix, _x_<sub>i</sub> is the _i_ th training word vector in the query language and _z_<sub>i</sub> is the word vector for the corresponding translation. I used <a href="https://github.com/Theano/Theano" target="_blank">Theano</a> to implement the gradient descent in this step, and manually checked the partial derivatives on a small example matrix to make sure I got the same results as Theano (having not used Theano prior to this). I plotted the cost function with increasing training iterations in order to see how different training rates impacted the effectiveness of the gradient descent.
 * I then applied the transformation matrix to all Swedish word vectors to obtain corresponding vectors that are then comparable to the English word vectors.

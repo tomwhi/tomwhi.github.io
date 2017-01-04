@@ -10,6 +10,8 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://tomwhi.github.io/">
 <!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/using-word-vectors-to-decipher-swedish-culture/" type="text/html">
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
 </head>
 <body>
     <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -90,8 +92,7 @@
 <li>
 <a href="https://github.com/tomwhi/nlp-stuff/blob/master/derive_translation_matrix.py" target="_blank">Training</a> the transformation matrix, by implementing gradient descent with the loss function defined in <a href="https://arxiv.org/abs/1309.4168" target="_blank">Mikolov <em>et al.</em></a>:</li>
 </ul>
-<p><img alt="equation" src="images/WordVectors/Equation.png"></p>
-<ul>
+<script type="math/tex; mode=display" id="MathJax-Element">\min_{W} \sum_{i=1}^{n} \|Wx_i-z_i\|^2</script><ul>
 <li>Here, <em>W</em> is the translation matrix, <em>x</em><sub>i</sub> is the <em>i</em> th training word vector in the query language and <em>z</em><sub>i</sub> is the word vector for the corresponding translation. I used <a href="https://github.com/Theano/Theano" target="_blank">Theano</a> to implement the gradient descent in this step, and manually checked the partial derivatives on a small example matrix to make sure I got the same results as Theano (having not used Theano prior to this). I plotted the cost function with increasing training iterations in order to see how different training rates impacted the effectiveness of the gradient descent.</li>
 <li>I then applied the transformation matrix to all Swedish word vectors to obtain corresponding vectors that are then comparable to the English word vectors.</li>
 </ul>
