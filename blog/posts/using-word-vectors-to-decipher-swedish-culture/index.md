@@ -57,6 +57,7 @@ Inspecting some example words and their translations indicates that the translat
 
 *Figure 1: Scatterplot showing a selection of English words (red) and their corresponding Swedish words (blue), connected by light grey lines, when the word vectors are projected onto the first two principal components derived from running <a href="https://en.wikipedia.org/wiki/Principal_component_analysis" target="_blank">PCA</a> on the English word vectors:*
 ![PC plot 1](/images/WordVectors/PC_Plot_English_Swedish.png)
+<sub><sup>***Technical note**: Swedish word vectors can be projected onto the English principal components 1 and 2, as the Swedish and English word vectors just happen to be the same length (400 elements). This is done in figure 1 simply to contrast against their updated positions as shown in figure 2, after the translation matrix is applied.*</sup></sub>
 
 *Figure 2: When I multiply the Swedish word vectors with the translation matrix, the word vectors move much close to their respective English counterparts:*
 ![PC plot 2](/images/WordVectors/PC_Plot_English_Swedish_Translated.png)

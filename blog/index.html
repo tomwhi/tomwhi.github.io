@@ -98,7 +98,7 @@
 </ul>
 <p>Inspecting some example words and their translations indicates that the translation works quite well, as illustrated by the shift in Swedish word vectors between Figure 1 and Figure 2:</p>
 <p><em>Figure 1: Scatterplot showing a selection of English words (red) and their corresponding Swedish words (blue), connected by light grey lines, when the word vectors are projected onto the first two principal components derived from running <a href="https://en.wikipedia.org/wiki/Principal_component_analysis" target="_blank">PCA</a> on the English word vectors:</em>
-<img alt="PC plot 1" src="images/WordVectors/PC_Plot_English_Swedish.png"></p>
+<img alt="PC plot 1" src="images/WordVectors/PC_Plot_English_Swedish.png"><sub><sup><em><strong>Technical note</strong>: Swedish word vectors can be projected onto the English principal components 1 and 2, as the Swedish and English word vectors just happen to be the same length (400 elements). This is done in figure 1 simply to contrast against their updated positions as shown in figure 2, after the translation matrix is applied.</em></sup></sub></p>
 <p><em>Figure 2: When I multiply the Swedish word vectors with the translation matrix, the word vectors move much close to their respective English counterparts:</em>
 <img alt="PC plot 2" src="images/WordVectors/PC_Plot_English_Swedish_Translated.png"></p>
 <h2>Mitigating the "curse of dimensionality"</h2>
