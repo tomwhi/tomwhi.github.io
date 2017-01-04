@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Tom's Data Science Blog</title><link>https://tomwhi.github.io/</link><description>Tom's Data Science Blog</description><atom:link type="application/rss+xml" rel="self" href="https://tomwhi.github.io/rss.xml"></atom:link><language>en</language><lastBuildDate>Sun, 01 Jan 2017 21:32:15 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Using word vectors to decipher Swedish culture</title><link>https://tomwhi.github.io/posts/using-word-vectors-to-decipher-swedish-culture/</link><dc:creator>Tom Whitington</dc:creator><description>&lt;div&gt;&lt;h2&gt;Intro&lt;/h2&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Tom's Data Science Blog</title><link>https://tomwhi.github.io/</link><description>Tom's Data Science Blog</description><atom:link href="https://tomwhi.github.io/rss.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><lastBuildDate>Wed, 04 Jan 2017 18:20:17 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Using word vectors to decipher Swedish culture</title><link>https://tomwhi.github.io/posts/using-word-vectors-to-decipher-swedish-culture/</link><dc:creator>Tom Whitington</dc:creator><description>&lt;div&gt;&lt;h2&gt;Intro&lt;/h2&gt;
 &lt;p&gt;Can culture be quantified? Taking for example a statement like:&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;"Society has become more liberal over the years."&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;or&lt;/p&gt;
@@ -72,7 +72,7 @@
 &lt;p&gt;If someone asked me,&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;"What did you find, in your quest for the word vectors?"&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;I would answer:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="PC plot 2" src="https://tomwhi.github.io/images/WordVectors/illumination_subtitled.gif"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="PC plot 2" src="https://tomwhi.github.io/illumination_subtitled.gif"&gt;&lt;/p&gt;
 &lt;p&gt;The project was a lot of fun and I have learnt some new skills whilst doing it, including how to analyse and visualise word vectors, and implementing the gradient descent using Theano.&lt;/p&gt;
 &lt;p&gt;I am reasonably confident in the veracity of my findings, with some caveats (see &lt;a href="https://tomwhi.github.io/posts/using-word-vectors-to-decipher-swedish-culture/#appendix"&gt;appendix&lt;/a&gt;). On the whole, this approach seems to turn up some genuine areas of linguistic expression that are enriched in one language relative to another (in this case English vs Swedish). By inspecting the sets of words enriched in English relative to Swedish, the method seems to produce insights into cultural differences between the English- and Swedish-speaking communities.&lt;/p&gt;
 &lt;p&gt;Rigorous quantification of something as hard-to-define as human culture has important and beneficial applications.&lt;/p&gt;
@@ -90,6 +90,4 @@
 &lt;p&gt;&lt;img alt="PC plot 2" src="https://tomwhi.github.io/images/WordVectors/Language_Artefact_clusters.svg"&gt;&lt;/p&gt;
 &lt;p&gt;Finally, the least-translatable 72 (10% of all) English word clusters also included some results that seem to reflect culture in some way, which didn't fit into the main results section above. Here they are:&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Figure 12: Additional results of interest&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt="PC plot 2" src="https://tomwhi.github.io/images/WordVectors/Misc_Or_For_Appendix.svg"&gt;&lt;/p&gt;
-&lt;h2&gt;Comments&lt;/h2&gt;
-&lt;p&gt;Comments and discussion are very welcome, I will be implementing this shortly.&lt;/p&gt;&lt;/div&gt;</description><guid>https://tomwhi.github.io/posts/using-word-vectors-to-decipher-swedish-culture/</guid><pubDate>Sun, 01 Jan 2017 16:01:43 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;img alt="PC plot 2" src="https://tomwhi.github.io/images/WordVectors/Misc_Or_For_Appendix.svg"&gt;&lt;/p&gt;&lt;/div&gt;</description><guid>https://tomwhi.github.io/posts/using-word-vectors-to-decipher-swedish-culture/</guid><pubDate>Sun, 01 Jan 2017 16:01:43 GMT</pubDate></item></channel></rss>

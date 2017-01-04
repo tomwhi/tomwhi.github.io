@@ -133,7 +133,7 @@ _"What did you find, in your quest for the word vectors?"_
 
 I would answer:
 
-![PC plot 2](/images/WordVectors/illumination_subtitled.gif)
+![PC plot 2](/illumination_subtitled.gif)
 
 The project was a lot of fun and I have learnt some new skills whilst doing it, including how to analyse and visualise word vectors, and implementing the gradient descent using Theano.
 
