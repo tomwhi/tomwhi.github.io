@@ -26,19 +26,19 @@ When training a multi-label classifier with supervised learning, one typically s
 Given a suitable training dataset, the standard approach is to use the [binary cross entropy loss function](https://towardsdatascience.com/cross-entropy-for-classification-d98e7f974451) when training a multi-label classifier. In pytorch, this is implemented in [`torch.nn.BCELoss`](https://pytorch.org/docs/stable/generated/torch.nn.BCELoss.html#torch.nn.BCELoss) and [`torch.nn.BCEWithLogitsLoss`](https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html). `BCEWithLogitsLoss` is the same as `torch.nn.BCELoss` but with an initial sigmoid layer on the inputs, so that one can avoid numerical instability that can occur when working with (potentially tiny) probability values.
 
 The `BCEWithLogitsLoss` function takes as input a batch of "logit" values (scores that can be converted to probabilities using the sigmoid function) - each with _N_ rows and _C_ columns - and corresponding labels, each label being 0 or 1 for the given example and category:
-<p align="center"><img src="BCELossInputs.png" alt="BCE loss inputs" width="800"/></p>
+![BCE loss inputs](/images/loss_function/BCELossInputs.png)
 
 For a given item in the batch (_i.e._ a single row from _x_ and _y_), the loss is given by the following formula:
 
-<p align="center"><img src="BCELossFormulaSingleItem.png" alt="BCE loss single item" width="800"/></p>
+![BCE loss single item](/images/loss_function/BCELossFormulaSingleItem.png)
 
 Here, $\sigma$ is the element-wise logistic (sigmoid) function - so it is applied to each element of _x<sub>n</sub>_. Here's an example of this computation for the first item in the batch from above:
 
-<p align="center"><img src="LossExampleCalculation.png" alt="Loss example calculation" width="900"/></p>
+![Loss example calculation](/images/loss_function/LossExampleCalculation.png)
 
 The overall loss for a batch of data is then simply the mean of the loss scores for the individual items in the batch:
 
-<p align="center"><img src="LossMeanCalculation.png" alt="BCE mean calculation" width="500"/></p>
+![BCE mean calculation](/images/loss_function/LossMeanCalculation.png)
 
 _Side-note: the negative log of a probability is known as the information content ("self information") of an event. So, l<sub>n</sub> ends up being the sum of the information content contributed by each of the categories._
 
@@ -56,15 +56,15 @@ One solution to this problem is to modify the binary cross entropy loss function
 
 Here, we illustrate this approach, focusing on the case where only a single category has a label for each training example. Using this approach, the new loss function still accepts logits as the input _x_, but the label matrix _y_ is modified so that only one category has a label for a given input item, and every other category has a null label of _-1_ for that input example.
 
-<p align="center"><img src="ModifiedLossInputs.png" alt="Modified loss inputs" width="800"/></p>
+![Modified loss inputs](/images/loss_function/ModifiedLossInputs.png)
 
 The loss for a single item in a batch is then modified to only look at the logit score and label for the non-null category:
 
-<p align="center"><img src="ModifiedLossFormulaSingleItem.png" alt="Modified loss single item" width="800"/></p>
+![Modified loss single item](/images/loss_function/ModifiedLossFormulaSingleItem.png)
 
 Here's what that computation would look like for both items from the batch above:
 
-<p align="center"><img src="ModifiedLossExampleCalculation.png" alt="Modified loss example calculation" width="800"/></p>
+![Modified loss example calculation](/images/loss_function/ModifiedLossExampleCalculation.png)
 
 Ideally, we'd like to be able to cope with the more general requirement of masking zero or more categories for each input example, even though we may in practice only label one category for each example. The following code snippet implements this more general masking approach in pytorch:
 
