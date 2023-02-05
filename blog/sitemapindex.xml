@@ -6,19 +6,15 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
-  <loc>https://tomwhi.github.io/galleries/demo/rss.xml</loc>
-  <lastmod>2017-01-04T20:55:00Z</lastmod>
+  <loc>https://tomwhi.github.com/galleries/rss.xml</loc>
+  <lastmod>2023-02-05T15:25:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://tomwhi.github.io/galleries/rss.xml</loc>
-  <lastmod>2017-01-04T20:55:00Z</lastmod>
+  <loc>https://tomwhi.github.com/rss.xml</loc>
+  <lastmod>2023-02-05T15:25:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://tomwhi.github.io/rss.xml</loc>
-  <lastmod>2017-01-04T21:01:00Z</lastmod>
- </sitemap>
- <sitemap>
-  <loc>https://tomwhi.github.io/sitemap.xml</loc>
-  <lastmod>2017-01-04T22:19:00Z</lastmod>
+  <loc>https://tomwhi.github.com/sitemap.xml</loc>
+  <lastmod>2023-02-05T15:25:00Z</lastmod>
  </sitemap>
 </sitemapindex>
