@@ -48,7 +48,7 @@ I produced word vectors and a transformation matrix through the following steps:
 * <a href="https://github.com/tomwhi/nlp-stuff/blob/master/run_microsoft_translation.py" target="_blank">Obtaining translations</a> for the most frequent words using the Microsoft translation API, to use for training the transformation matrix, and [retrieving](https://github.com/tomwhi/nlp-stuff/blob/master/retrieve_training_vectors.py) corresponding word vector pairs.
 * <a href="https://github.com/tomwhi/nlp-stuff/blob/master/derive_translation_matrix.py" target="_blank">Training</a> the transformation matrix, by implementing gradient descent with the loss function defined in <a href="https://arxiv.org/abs/1309.4168" target="_blank">Mikolov _et al._</a>:
 
-<script type="math/tex; mode=display" id="MathJax-Element">\min_{W} \sum_{i=1}^{n} \|Wx_i-z_i\|^2</script>
+![equation](/images/WordVectors/Equation.png)
 
 * Here, _W_ is the translation matrix, _x_<sub>i</sub> is the _i_ th training word vector in the query language and _z_<sub>i</sub> is the word vector for the corresponding translation. I used <a href="https://github.com/Theano/Theano" target="_blank">Theano</a> to implement the gradient descent in this step, and manually checked the partial derivatives on a small example matrix to make sure I got the same results as Theano (having not used Theano prior to this). I plotted the cost function with increasing training iterations in order to see how different training rates impacted the effectiveness of the gradient descent.
 * I then applied the transformation matrix to all Swedish word vectors to obtain corresponding vectors that are then comparable to the English word vectors.
@@ -80,7 +80,7 @@ Looking at the clusters with highest translatability, we can see that the cluste
 
 *Figure 3: Clusters of similar English words (red nodes) with high median cosine similarity of their closest Swedish translations (blue nodes), defined through use of InfoMap. Visualisation generated with <a href="https://gephi.org" target="_blank">Gephi</a>. Edges between English word nodes indicate cosine similarity > 0.5, whereas an edge to a Swedish word node indicates the translation with highest cosine similarity for the given English word. The size of Swedish word nodes is scaled to the maximum observed cosine similarity score for that word. Note: The numeric values associated with the Swedish words are a technical artefact, and can be ignored.*
 
-![PC plot 2](/images/WordVectors/NegCntrl_Clusters.png)
+![NegCntrlClusters](/images/WordVectors/NegCntrl_Clusters.png)
 
 
 # <a name="results"></a>Cultural insights: The Jantelagen and the Swagman
@@ -90,42 +90,42 @@ One unspoken rule underpinning Scandinavian societies is the <a href="https://en
 
 *Figure 4: English words that appear to violate the Swedish Jantelagen (see Figure 3 caption for legend).*
 
-![PC plot 2](/images/WordVectors/Jantelagen_cluster_v1.png)
+![Jantelagen cluster](/images/WordVectors/Jantelagen_cluster_v1.png)
 
 Scandinavian societies are also famous for being highly egalitarian - a concept extending beyond the Jantelagen itself. My method identifies several relevant clusters of English words that are indeed not very egalitarian in tone. In Figure 5 we can see a cluster of words containing various occupations. Some of these arguably exist solely for rich people to flaunt their wealth - such as _butlers_ or _valets_, and others might be considered old fashioned, such as _housekeepers_ or _homemakers_. In a similar vein, words like _profiteering_, _mongering_, _debased_, and _bullish_ seem to run counter to ideals of equality.
 
 *Figure 5: English words and concepts that run counter to egalitarianism.*
 
-![PC plot 2](/images/WordVectors/Egalitarianism_cluster_v1.png)
+![Egalitarianism cluster](/images/WordVectors/Egalitarianism_cluster_v1.png)
 
 Figure 6 shows a cluster of morality-related verbs such as _sinned_ and _transgressed_, and a cluster of nouns/adjectives relating to virtues, including _valour_ and _gallantry_. These are concepts that vary from culture to culture; such ideas could be considered pompous or pious depending on your point of view.
 
 *Figure 6: English words relating to virtue concepts that translate poorly to Swedish.*
 
-![PC plot 2](/images/WordVectors/Pomposity_clusters_v1.png)
+![Pomposity cluster](/images/WordVectors/Pomposity_clusters_v1.png)
 
 Various English word clusters relating to north american sporting terminology (baseball, gridiron football) as well as famous computer games (_ultima_, _resident evil_) also translate poorly into Swedish (Figure 7). This is clearly an expected result, as Swedes simply revert to using the English terminology when discussing such topics.
 
 *Figure 7: Sporting/gaming terms that translate poorly to Swedish.*
-![PC plot 2](/images/WordVectors/Sports_cluster_v1.png)
+![Sports cluster](/images/WordVectors/Sports_cluster_v1.png)
 
 Finally, as an Australian, here is my favourite result of all:
 
 *Figure 8: Archaic professions of the Australian bush*
 
-![PC plot 2](/images/WordVectors/Swagman_cluster_v1.png)
+![Swagman cluster](/images/WordVectors/Swagman_cluster_v1.png)
 
 Of course, most Swedes will have not the foggiest of what a _bushranger_ or a _swagman_ is. These words are all professions in the Australian outback, in colonial times. A <a href="https://en.wikipedia.org/wiki/Swagman" target="_blank">swagman</a> was someone a bit down on their luck, travelling around the Australian bush looking for work here and there (Figure 9).
 
 *Figure 9: A swagman*
 
-![PC plot 2](/images/WordVectors/swagman.jpg)
+![Swagman](/images/WordVectors/swagman.jpg)
 
 The method gets fairly close for "bushranger", coming up with the Swedish word "pirat" (which is equivelant to the English word "pirate"). <a href="https://en.wikipedia.org/wiki/Bushranger" target="_blank">Bushrangers</a> were people hiding in the bush to evade the authorities, occasionally fighting the police (Figure 10).
 
 *Figure 10: No, Swedes, that's not a Södermalm hipster. It's Ned Kelly, Australia's most famous bushranger, with his home-made suit of armour!*
 
-![PC plot 2](/images/WordVectors/Ned_Kelly_in_1880.png)
+![Ned Kelly](/images/WordVectors/Ned_Kelly_in_1880.png)
 
 # Perspectives
 If someone asked me,
@@ -134,7 +134,7 @@ _"What did you find, in your quest for the word vectors?"_
 
 I would answer:
 
-![PC plot 2](/illumination_subtitled.gif)
+![illumination](/illumination_subtitled.gif)
 
 The project was a lot of fun and I have learnt some new skills whilst doing it, including how to analyse and visualise word vectors, and implementing the gradient descent using Theano.
 
@@ -142,10 +142,11 @@ I am reasonably confident in the veracity of my findings, with some caveats (see
 
 Rigorous quantification of something as hard-to-define as human culture has important and beneficial applications.
 
-As for future follow on work. Word vectors are, indeed, very cool. But <a href="https://arxiv.org/abs/1506.06726" target="_blank">thought vectors</a> - that, my friends, is the shit! The ability to quantify individual thoughts could be a boon to humanity when coupled with good visualisation techniques. They could (for example) be used to augment human's understanding of various topics, granting permanence and elucidating what is otherwise ephemeral and complex.
+As for future follow on work. Word vectors are, indeed, very cool. But <a href="https://arxiv.org/abs/1506.06726" target="_blank">thought vectors</a> - are even cooler! The ability to quantify individual thoughts could be a boon to humanity when coupled with good visualisation techniques. They could (for example) be used to augment human's understanding of various topics, granting permanence and elucidating what is otherwise ephemeral and complex.
 
-# Motivation
-So, why did I do all this? A few reasons. I am currently (2017) employed as a bioinformatician, analysing genomics sequence data. It's an ongoing position, and quite interesting. I've <a href="https://scholar.google.com/citations?user=1280JtcAAAAJ&hl=en" target="_blank">delivered</a> research at the top level in the field over the years, including two co-first author Nature Genetics papers. Nevertheless, I'm considering shifting fields, given the amazing developments in NLP and deep learning over the past couple of years. I believe I have the technical ability and background to deliver in this area, and I did this project to demonstrate this. If you want to get in touch, please contact me by email: <whitington@protonmail.com>, see also my [about page](https://tomwhi.github.io/blog/pages/about/index.html). I'm based in Stockholm, Sweden.
+Thank you for reading!
+
+UPDATE (2023-02-03): This whole blog post is in many ways hopelessly outdated. But in particular I want to make a remark regarding the above "thought vectors": Arguably better terms for this could be "sentence embeddings", "contextualized word embeddings" - the kind of thing you get out of BERT and similar large language models.
 
 # Acknowledgements
 I wish to thank <a href="https://twitter.com/mattiasostmar" target="_blank">Mattias Östmar</a> and <a href="https://twitter.com/mikaelhuss" target="_blank">Mikael Huss</a>, who provided great insights and feedback throughout the project.
@@ -161,21 +162,17 @@ There are also some obvious artefacts in the final results. For example, several
 
 *Figure 11: Artefact word clusters - foreign language clusters*
 
-![PC plot 2](/images/WordVectors/Language_Artefact_clusters.svg)
+![Artefact clusters](/images/WordVectors/Language_Artefact_clusters.svg)
 
 Finally, the least-translatable 72 (10% of all) English word clusters also included some results that seem to reflect culture in some way, which didn't fit into the main results section above. Here they are:
 
 *Figure 12: Additional results of interest*
 
-![PC plot 2](/images/WordVectors/Misc_Or_For_Appendix.svg)
+![Misc results](/images/WordVectors/Misc_Or_For_Appendix.svg)
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+## _Social media:_
+If you would like to get in touch, here's my social media:
 
-  ga('create', 'UA-89681522-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
+* LinkedIn: [https://www.linkedin.com/in/tomwhitington](https://www.linkedin.com/in/tomwhitington)
+* Twitter: [@Tom_Whitington](https://twitter.com/Tom_Whitington)
+* Mastodon: @tomwhitington@sigmoid.social
