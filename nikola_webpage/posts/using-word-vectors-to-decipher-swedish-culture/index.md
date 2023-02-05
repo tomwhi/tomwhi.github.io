@@ -169,3 +169,10 @@ Finally, the least-translatable 72 (10% of all) English word clusters also inclu
 *Figure 12: Additional results of interest*
 
 ![Misc results](/images/WordVectors/Misc_Or_For_Appendix.svg)
+
+## _Social media:_
+If you would like to get in touch, here's my social media:
+
+* LinkedIn: [https://www.linkedin.com/in/tomwhitington](https://www.linkedin.com/in/tomwhitington)
+* Twitter: [@Tom_Whitington](https://twitter.com/Tom_Whitington)
+* Mastodon: @tomwhitington@sigmoid.social

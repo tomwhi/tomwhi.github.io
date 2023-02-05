@@ -126,8 +126,8 @@ _Note: Results are not shown - out of scope for this blogpost._
 Using a custom loss function based on binary cross entropy, one can include selectively labelled examples, without having to label every category. This can reduce the labelling cost by a factor of _C = Number of categories_, when one only wishes to label a single category for each example. We applied this approach in the context of multilabel text classification, but it is equally applicable to other modalities, such as image data.
 
 ## _Social media:_
-Twitter: @Tom_Whitington
+If you would like to get in touch, here's my social media:
 
-LinkedIn: https://www.linkedin.com/in/tomwhitington/
-
-Mastodon: @tomwhitington@sigmoid.social
+* LinkedIn: [https://www.linkedin.com/in/tomwhitington](https://www.linkedin.com/in/tomwhitington)
+* Twitter: [@Tom_Whitington](https://twitter.com/Tom_Whitington)
+* Mastodon: @tomwhitington@sigmoid.social
