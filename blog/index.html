@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://tomwhi.github.com/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/multilabel-classification-modified-loss/multilabel-classification-modified-loss/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/multilabel-classification-modified-loss/" type="text/html">
 </head>
 <body>
     <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -45,13 +45,13 @@
         
 
 <div class="posts">
-    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/multilabel-classification-modified-loss/multilabel-classification-modified-loss/" class="u-url">More efficient labelling via a modified loss function</a></h1>
+    <article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/multilabel-classification-modified-loss/" class="u-url">More efficient labelling via a modified loss function</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn">Tom Whitington</span></p>
-            <p class="dateline"><a href="posts/multilabel-classification-modified-loss/multilabel-classification-modified-loss/" rel="bookmark"><time class="post-date published dt-published" datetime="2023-02-03T11:22:00+01:00" title="2023-02-03 11:22">2023-02-03 11:22</time></a></p>
+            <p class="dateline"><a href="posts/multilabel-classification-modified-loss/" rel="bookmark"><time class="post-date published dt-published" datetime="2023-02-03T11:22:00+01:00" title="2023-02-03 11:22">2023-02-03 11:22</time></a></p>
                 <p class="commentline">
     
-    <a href="posts/multilabel-classification-modified-loss/multilabel-classification-modified-loss/#disqus_thread" data-disqus-identifier="cache/posts/multilabel-classification-modified-loss/index.html">Comments</a>
+    <a href="posts/multilabel-classification-modified-loss/#disqus_thread" data-disqus-identifier="cache/posts/multilabel-modified-loss.html">Comments</a>
 
 
         </p>
@@ -149,13 +149,13 @@ tensor(5.5395, dtype=torch.float64)
 <li>Mastodon: @tomwhitington@sigmoid.social</li>
 </ul>
 </div>
-    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/using-word-vectors-to-decipher-swedish-culture/using-word-vectors-to-decipher-swedish-culture/" class="u-url">Using word vectors to decipher Swedish culture</a></h1>
+    </article><article class="post h-entry post-text"><header><h1 class="post-title p-name"><a href="posts/using-word-vectors-to-decipher-swedish-culture/" class="u-url">Using word vectors to decipher Swedish culture</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn">Tom Whitington</span></p>
-            <p class="dateline"><a href="posts/using-word-vectors-to-decipher-swedish-culture/using-word-vectors-to-decipher-swedish-culture/" rel="bookmark"><time class="post-date published dt-published" datetime="2017-01-01T17:01:43+01:00" title="2017-01-01 17:01">2017-01-01 17:01</time></a></p>
+            <p class="dateline"><a href="posts/using-word-vectors-to-decipher-swedish-culture/" rel="bookmark"><time class="post-date published dt-published" datetime="2017-01-01T17:01:43+01:00" title="2017-01-01 17:01">2017-01-01 17:01</time></a></p>
                 <p class="commentline">
     
-    <a href="posts/using-word-vectors-to-decipher-swedish-culture/using-word-vectors-to-decipher-swedish-culture/#disqus_thread" data-disqus-identifier="cache/posts/using-word-vectors-to-decipher-swedish-culture/index.html">Comments</a>
+    <a href="posts/using-word-vectors-to-decipher-swedish-culture/#disqus_thread" data-disqus-identifier="cache/posts/word-embeddings-swedish-culture.html">Comments</a>
 
 
         </p>
@@ -169,7 +169,7 @@ tensor(5.5395, dtype=torch.float64)
 <p>How do we know whether these statements are accurate?</p>
 <p>Such questions relating to culture often prove refractory to quantitative analysis. However, recent developments in natural language processing (NLP) are providing new avenues of investigation. For example, the development of high quality <a href="https://en.wikipedia.org/wiki/Word_embedding" target="_blank">word embeddings</a> provides a mechanism for quantifying the meaning of words, as derived from input text corpora.</p>
 <p>Here, I present an attempt to use word vectors to analyse culture. In particular, I have analysed <a href="https://arxiv.org/abs/1301.3781" target="_blank">word2vec</a> word embeddings trained on English and Swedish wikipedia corpuses, to examine whether there are particular areas of expression that are enriched or depleted in one language compared to another.</p>
-<p>Below, I explain the analysis. To skip straight to the nice meaty results, <a href="posts/using-word-vectors-to-decipher-swedish-culture/using-word-vectors-to-decipher-swedish-culture/#results">click here</a>.</p>
+<p>Below, I explain the analysis. To skip straight to the nice meaty results, <a href="posts/using-word-vectors-to-decipher-swedish-culture/#results">click here</a>.</p>
 <p><img alt="clusters aesthetic" src="images/WordVectors/All_Clusters_Aesthetic_v3.svg"></p>
 <h2>Word2vec and machine translation</h2>
 <p>Word2vec is very cool indeed. The method produces high dimensional word embeddings by training a neural network to predict words given their context, from an input text corpus. The resulting <a href="https://www.tensorflow.org/tutorials/word2vec/" target="_blank">word vectors</a> have interesting semantic properties. To take a famous example, if we take the vector for the word "King", subtract the vector for "man" and add the vector for "woman", we end up with a vector located close to the word "Queen".</p>
@@ -215,7 +215,7 @@ tensor(5.5395, dtype=torch.float64)
 <p><img alt="NegCntrlClusters" src="images/WordVectors/NegCntrl_Clusters.png"></p>
 <h2>
 <a name="results"></a>Cultural insights: The Jantelagen and the Swagman</h2>
-<p>Some of the clusters with low translatability scores reveal potentially cultural differences between Swedish- and English-speaking populations. I considered the clusters in the lowest 10% of translatability (72 clusters in total), and present illustrative examples here (more extensive results are presented in the <a href="posts/using-word-vectors-to-decipher-swedish-culture/using-word-vectors-to-decipher-swedish-culture/#appendix">appendix</a>).</p>
+<p>Some of the clusters with low translatability scores reveal potentially cultural differences between Swedish- and English-speaking populations. I considered the clusters in the lowest 10% of translatability (72 clusters in total), and present illustrative examples here (more extensive results are presented in the <a href="posts/using-word-vectors-to-decipher-swedish-culture/#appendix">appendix</a>).</p>
 <p>One unspoken rule underpinning Scandinavian societies is the <a href="https://en.wikipedia.org/wiki/Law_of_Jante" target="_blank">"Jantelagen"</a>. Under the Jantelagen, it is taboo to promote oneself as having greater merit or achievement compared to others. As such, it is perhaps no surprise that English words such as <em>eclipsed</em>, <em>surpassed</em>, <em>rivaled</em>, <em>bettered</em> and <em>outpaced</em> are difficult to translate to Swedish equivalents (Figure 4).</p>
 <p><em>Figure 4: English words that appear to violate the Swedish Jantelagen (see Figure 3 caption for legend).</em></p>
 <p><img alt="Jantelagen cluster" src="images/WordVectors/Jantelagen_cluster_v1.png"></p>
@@ -243,7 +243,7 @@ tensor(5.5395, dtype=torch.float64)
 <p>I would answer:</p>
 <p><img alt="illumination" src="illumination_subtitled.gif"></p>
 <p>The project was a lot of fun and I have learnt some new skills whilst doing it, including how to analyse and visualise word vectors, and implementing the gradient descent using Theano.</p>
-<p>I am reasonably confident in the veracity of my findings, with some caveats (see <a href="posts/using-word-vectors-to-decipher-swedish-culture/using-word-vectors-to-decipher-swedish-culture/#appendix">appendix</a>). On the whole, this approach seems to turn up some genuine areas of linguistic expression that are enriched in one language relative to another (in this case English vs Swedish). By inspecting the sets of words enriched in English relative to Swedish, the method seems to produce insights into cultural differences between the English- and Swedish-speaking communities.</p>
+<p>I am reasonably confident in the veracity of my findings, with some caveats (see <a href="posts/using-word-vectors-to-decipher-swedish-culture/#appendix">appendix</a>). On the whole, this approach seems to turn up some genuine areas of linguistic expression that are enriched in one language relative to another (in this case English vs Swedish). By inspecting the sets of words enriched in English relative to Swedish, the method seems to produce insights into cultural differences between the English- and Swedish-speaking communities.</p>
 <p>Rigorous quantification of something as hard-to-define as human culture has important and beneficial applications.</p>
 <p>As for future follow on work. Word vectors are, indeed, very cool. But <a href="https://arxiv.org/abs/1506.06726" target="_blank">thought vectors</a> - are even cooler! The ability to quantify individual thoughts could be a boon to humanity when coupled with good visualisation techniques. They could (for example) be used to augment human's understanding of various topics, granting permanence and elucidating what is otherwise ephemeral and complex.</p>
 <p>Thank you for reading!</p>

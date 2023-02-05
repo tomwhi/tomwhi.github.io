@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <title>More efficient labelling via a modified loss function | Tom's Data Science Blog</title>
-<link href="../../../assets/css/all.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/all.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.xml">
-<link rel="canonical" href="https://tomwhi.github.com/posts/multilabel-classification-modified-loss/multilabel-classification-modified-loss/">
-<!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Tom Whitington">
-<link rel="prev" href="../../using-word-vectors-to-decipher-swedish-culture/using-word-vectors-to-decipher-swedish-culture/" title="Using word vectors to decipher Swedish culture" type="text/html">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://tomwhi.github.com/posts/multilabel-classification-modified-loss/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Tom Whitington">
+<link rel="prev" href="../using-word-vectors-to-decipher-swedish-culture/" title="Using word vectors to decipher Swedish culture" type="text/html">
 <meta property="og:site_name" content="Tom's Data Science Blog">
 <meta property="og:title" content="More efficient labelling via a modified loss function">
-<meta property="og:url" content="https://tomwhi.github.com/posts/multilabel-classification-modified-loss/multilabel-classification-modified-loss/">
+<meta property="og:url" content="https://tomwhi.github.com/posts/multilabel-classification-modified-loss/">
 <meta property="og:description" content="tl;dr
 One can dramatically reduce the cost of labelling data for a multi-label classifier, using a custom loss function adapted from binary cross entropy.
 Labelling data is expensive
@@ -29,9 +29,9 @@ Supervised learni">
           <img src="../assets/ProfilePic.png">
 </div>
         
-    <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../../archive.html">Archive</a>
-        <a class="sidebar-nav-item" href="../../../categories/">Tags</a>
-        <a class="sidebar-nav-item" href="../../../rss.xml">RSS feed</a>
+    <nav id="menu" role="navigation" class="sidebar-nav"><a class="sidebar-nav-item" href="../../archive.html">Archive</a>
+        <a class="sidebar-nav-item" href="../../categories/">Tags</a>
+        <a class="sidebar-nav-item" href="../../rss.xml">RSS feed</a>
     
     
     </nav>
@@ -59,7 +59,7 @@ Supervised learni">
             <p class="dateline"><a href="." rel="bookmark"><time class="post-date published dt-published" datetime="2023-02-03T11:22:00+01:00" itemprop="datePublished" title="2023-02-03 11:22">2023-02-03 11:22</time></a></p>
                 <p class="commentline">
     
-    <a href="#disqus_thread" data-disqus-identifier="cache/posts/multilabel-classification-modified-loss/index.html">Comments</a>
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/multilabel-modified-loss.html">Comments</a>
 
 
         </p>
@@ -78,13 +78,13 @@ Supervised learni">
 <p>When training a multi-label classifier with supervised learning, one typically starts with a dataset of <em>N<sub>total</sub></em> examples, where each example includes the input item, together with a vector of <em>C</em> labels, where <em>C</em> is the number of categories. Producing such a dataset will require O(<em>N<sub>total</sub> x C</em>) time. Therefore, labelling data is particularly expensive for multi-label classification problems.</p>
 <p>Given a suitable training dataset, the standard approach is to use the <a href="https://towardsdatascience.com/cross-entropy-for-classification-d98e7f974451">binary cross entropy loss function</a> when training a multi-label classifier. In pytorch, this is implemented in <a href="https://pytorch.org/docs/stable/generated/torch.nn.BCELoss.html#torch.nn.BCELoss"><code>torch.nn.BCELoss</code></a> and <a href="https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html"><code>torch.nn.BCEWithLogitsLoss</code></a>. <code>BCEWithLogitsLoss</code> is the same as <code>torch.nn.BCELoss</code> but with an initial sigmoid layer on the inputs, so that one can avoid numerical instability that can occur when working with (potentially tiny) probability values.</p>
 <p>The <code>BCEWithLogitsLoss</code> function takes as input a batch of "logit" values (scores that can be converted to probabilities using the sigmoid function) - each with <em>N</em> rows and <em>C</em> columns - and corresponding labels, each label being 0 or 1 for the given example and category:
-<img alt="BCE loss inputs" src="../../../images/loss_function/BCELossInputs.png"></p>
+<img alt="BCE loss inputs" src="../../images/loss_function/BCELossInputs.png"></p>
 <p>For a given item in the batch (<em>i.e.</em> a single row from <em>x</em> and <em>y</em>), the loss is given by the following formula:</p>
-<p><img alt="BCE loss single item" src="../../../images/loss_function/BCELossFormulaSingleItem.png"></p>
+<p><img alt="BCE loss single item" src="../../images/loss_function/BCELossFormulaSingleItem.png"></p>
 <p>Here, $\sigma$ is the element-wise logistic (sigmoid) function - so it is applied to each element of <em>x<sub>n</sub></em>. Here's an example of this computation for the first item in the batch from above:</p>
-<p><img alt="Loss example calculation" src="../../../images/loss_function/LossExampleCalculation.png"></p>
+<p><img alt="Loss example calculation" src="../../images/loss_function/LossExampleCalculation.png"></p>
 <p>The overall loss for a batch of data is then simply the mean of the loss scores for the individual items in the batch:</p>
-<p><img alt="BCE mean calculation" src="../../../images/loss_function/LossMeanCalculation.png"></p>
+<p><img alt="BCE mean calculation" src="../../images/loss_function/LossMeanCalculation.png"></p>
 <p><em>Side-note: the negative log of a probability is known as the information content ("self information") of an event. So, l<sub>n</sub> ends up being the sum of the information content contributed by each of the categories.</em></p>
 <h2>Leave out labels for input examples?</h2>
 <p>The binary cross entropy loss function requires each item to be labelled for every category. However, <em><strong>it would be really nice</strong></em> to be able to leave out labels - perhaps even only labelling a single category per input example. This would make it much easier to accrue positive and negative examples.</p>
@@ -94,11 +94,11 @@ Supervised learni">
 <h2>Custom loss function</h2>
 <p>One solution to this problem is to modify the binary cross entropy loss function to ignore specified categories when computing loss for a given input example. This can be implemented by specifying a label "mask" for each input example, as discussed <a href="https://github.com/keras-team/keras/issues/3893">here</a> and <a href="https://www.dlology.com/blog/how-to-multi-task-learning-with-missing-labels-in-keras/">here</a>.</p>
 <p>Here, we illustrate this approach, focusing on the case where only a single category has a label for each training example. Using this approach, the new loss function still accepts logits as the input <em>x</em>, but the label matrix <em>y</em> is modified so that only one category has a label for a given input item, and every other category has a null label of <em>-1</em> for that input example.</p>
-<p><img alt="Modified loss inputs" src="../../../images/loss_function/ModifiedLossInputs.png"></p>
+<p><img alt="Modified loss inputs" src="../../images/loss_function/ModifiedLossInputs.png"></p>
 <p>The loss for a single item in a batch is then modified to only look at the logit score and label for the non-null category:</p>
-<p><img alt="Modified loss single item" src="../../../images/loss_function/ModifiedLossFormulaSingleItem.png"></p>
+<p><img alt="Modified loss single item" src="../../images/loss_function/ModifiedLossFormulaSingleItem.png"></p>
 <p>Here's what that computation would look like for both items from the batch above:</p>
-<p><img alt="Modified loss example calculation" src="../../../images/loss_function/ModifiedLossExampleCalculation.png"></p>
+<p><img alt="Modified loss example calculation" src="../../images/loss_function/ModifiedLossExampleCalculation.png"></p>
 <p>Ideally, we'd like to be able to cope with the more general requirement of masking zero or more categories for each input example, even though we may in practice only label one category for each example. The following code snippet implements this more general masking approach in pytorch:</p>
 <div class="code"><pre class="code literal-block"><span class="kn">import</span> <span class="nn">torch</span>
 
@@ -161,7 +161,7 @@ tensor(5.5395, dtype=torch.float64)
 </div>
     <aside class="postpromonav"><nav><ul class="pager hidden-print">
 <li class="previous">
-                <a href="../../using-word-vectors-to-decipher-swedish-culture/using-word-vectors-to-decipher-swedish-culture/" rel="prev" title="Using word vectors to decipher Swedish culture">Previous post</a>
+                <a href="../using-word-vectors-to-decipher-swedish-culture/" rel="prev" title="Using word vectors to decipher Swedish culture">Previous post</a>
             </li>
         </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
         
@@ -169,9 +169,9 @@ tensor(5.5395, dtype=torch.float64)
         <div id="disqus_thread"></div>
         <script>
         var disqus_shortname ="https-tomwhi-github-io-blog",
-            disqus_url="https://tomwhi.github.com/posts/multilabel-classification-modified-loss/multilabel-classification-modified-loss/",
+            disqus_url="https://tomwhi.github.com/posts/multilabel-classification-modified-loss/",
         disqus_title="More efficient labelling via a modified loss function",
-        disqus_identifier="cache/posts/multilabel-classification-modified-loss/index.html",
+        disqus_identifier="cache/posts/multilabel-modified-loss.html",
         disqus_config = function () {
             this.language = "en";
         };
@@ -194,7 +194,7 @@ tensor(5.5395, dtype=torch.float64)
     
     
     
-            <script src="../../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+            <script src="../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
     moment.locale("en");
     fancydates(0, "YYYY-MM-DD HH:mm");
     </script><!-- end fancy dates -->
