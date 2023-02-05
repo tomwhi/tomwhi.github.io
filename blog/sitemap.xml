@@ -6,51 +6,51 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
-  <loc>https://tomwhi.github.io/</loc>
-  <lastmod>2023-02-05T16:10:00Z</lastmod>
+  <loc>https://tomwhi.github.io/blog/</loc>
+  <lastmod>2023-02-05T16:20:00Z</lastmod>
  </url>
  <url>
-  <loc>https://tomwhi.github.io/2017/</loc>
-  <lastmod>2023-02-05T16:10:00Z</lastmod>
+  <loc>https://tomwhi.github.io/blog/2017/</loc>
+  <lastmod>2023-02-05T16:20:00Z</lastmod>
  </url>
  <url>
-  <loc>https://tomwhi.github.io/2023/</loc>
-  <lastmod>2023-02-05T16:10:00Z</lastmod>
+  <loc>https://tomwhi.github.io/blog/2023/</loc>
+  <lastmod>2023-02-05T16:20:00Z</lastmod>
  </url>
  <url>
-  <loc>https://tomwhi.github.io/archive.html</loc>
-  <lastmod>2023-02-05T16:10:00Z</lastmod>
+  <loc>https://tomwhi.github.io/blog/archive.html</loc>
+  <lastmod>2023-02-05T16:20:00Z</lastmod>
  </url>
  <url>
-  <loc>https://tomwhi.github.io/categories/</loc>
-  <lastmod>2023-02-05T16:10:00Z</lastmod>
+  <loc>https://tomwhi.github.io/blog/categories/</loc>
+  <lastmod>2023-02-05T16:20:00Z</lastmod>
  </url>
  <url>
-  <loc>https://tomwhi.github.io/galleries/</loc>
-  <lastmod>2023-02-05T16:10:00Z</lastmod>
+  <loc>https://tomwhi.github.io/blog/galleries/</loc>
+  <lastmod>2023-02-05T16:20:00Z</lastmod>
  </url>
  <url>
-  <loc>https://tomwhi.github.io/listings/</loc>
-  <lastmod>2023-02-05T16:10:00Z</lastmod>
+  <loc>https://tomwhi.github.io/blog/listings/</loc>
+  <lastmod>2023-02-05T16:20:00Z</lastmod>
  </url>
  <url>
-  <loc>https://tomwhi.github.io/listings/__pycache__/</loc>
-  <lastmod>2023-02-05T16:10:00Z</lastmod>
+  <loc>https://tomwhi.github.io/blog/listings/__pycache__/</loc>
+  <lastmod>2023-02-05T16:20:00Z</lastmod>
  </url>
  <url>
-  <loc>https://tomwhi.github.io/listings/hello.py.html</loc>
-  <lastmod>2023-02-05T16:10:00Z</lastmod>
+  <loc>https://tomwhi.github.io/blog/listings/hello.py.html</loc>
+  <lastmod>2023-02-05T16:20:00Z</lastmod>
  </url>
  <url>
-  <loc>https://tomwhi.github.io/pages/about/about/</loc>
-  <lastmod>2023-02-05T16:10:00Z</lastmod>
+  <loc>https://tomwhi.github.io/blog/pages/about/about/</loc>
+  <lastmod>2023-02-05T16:20:00Z</lastmod>
  </url>
  <url>
-  <loc>https://tomwhi.github.io/posts/multilabel-classification-modified-loss/</loc>
-  <lastmod>2023-02-05T16:10:00Z</lastmod>
+  <loc>https://tomwhi.github.io/blog/posts/multilabel-classification-modified-loss/</loc>
+  <lastmod>2023-02-05T16:20:00Z</lastmod>
  </url>
  <url>
-  <loc>https://tomwhi.github.io/posts/using-word-vectors-to-decipher-swedish-culture/</loc>
-  <lastmod>2023-02-05T16:10:00Z</lastmod>
+  <loc>https://tomwhi.github.io/blog/posts/using-word-vectors-to-decipher-swedish-culture/</loc>
+  <lastmod>2023-02-05T16:20:00Z</lastmod>
  </url>
 </urlset>
