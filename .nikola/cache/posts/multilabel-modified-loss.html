@@ -1,0 +1,93 @@
+<h1>tl;dr</h1>
+<p>One can dramatically reduce the cost of labelling data for a multi-label classifier, using a custom loss function adapted from binary cross entropy.</p>
+<p><img alt="Stable Diffusion" src="/images/loss_function/IrritatedLabelledSheep.jpg">
+<em>(Stable diffusion - an irritated sheep in a paddock, covered in yellow postit notes)</em></p>
+<h1>Labelling data is expensive</h1>
+<p>Supervised learning requires labelled data, and manually labelling examples - for example identifying categories for documents - can be expensive.</p>
+<p>In the Contextual team at Schibsted, we use natural language processing and machine learning to derive value from text data, such as news articles from Schibsted media brands, including Aftonbladet, Afterposten, SvD, and VG. One of our products is a system for matching news articles to contextual advertising campaigns that make the matches using news article content, rather than user browsing history.</p>
+<p>Brand safety is an important concern in contextual advertising: articles that are deemed brand unsafe for a given campaign should not be matched to it. We have investigated text classification as a way to ensure brand safety of contextual advertising campaigns. A challenge with this approach is that the subtantial cost of labelling when producing a training dataset for a multi-label text classifier.</p>
+<p>This blog post presents how a custom loss function can be used to substantially reduce the burden of data labelling.</p>
+<h1>Labelling for multi-label classification</h1>
+<p>When training a multi-label classifier with supervised learning, one typically starts with a dataset of <em>N<sub>total</sub></em> examples, where each example includes the input item, together with a vector of <em>C</em> labels, where <em>C</em> is the number of categories. Producing such a dataset will require O(<em>N<sub>total</sub> x C</em>) time. Therefore, labelling data is particularly expensive for multi-label classification problems.</p>
+<p>Given a suitable training dataset, the standard approach is to use the <a href="https://towardsdatascience.com/cross-entropy-for-classification-d98e7f974451">binary cross entropy loss function</a> when training a multi-label classifier. In pytorch, this is implemented in <a href="https://pytorch.org/docs/stable/generated/torch.nn.BCELoss.html#torch.nn.BCELoss"><code>torch.nn.BCELoss</code></a> and <a href="https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html"><code>torch.nn.BCEWithLogitsLoss</code></a>. <code>BCEWithLogitsLoss</code> is the same as <code>torch.nn.BCELoss</code> but with an initial sigmoid layer on the inputs, so that one can avoid numerical instability that can occur when working with (potentially tiny) probability values.</p>
+<p>The <code>BCEWithLogitsLoss</code> function takes as input a batch of "logit" values (scores that can be converted to probabilities using the sigmoid function) - each with <em>N</em> rows and <em>C</em> columns - and corresponding labels, each label being 0 or 1 for the given example and category:
+<img alt="BCE loss inputs" src="/images/loss_function/BCELossInputs.png"></p>
+<p>For a given item in the batch (<em>i.e.</em> a single row from <em>x</em> and <em>y</em>), the loss is given by the following formula:</p>
+<p><img alt="BCE loss single item" src="/images/loss_function/BCELossFormulaSingleItem.png"></p>
+<p>Here, $\sigma$ is the element-wise logistic (sigmoid) function - so it is applied to each element of <em>x<sub>n</sub></em>. Here's an example of this computation for the first item in the batch from above:</p>
+<p><img alt="Loss example calculation" src="/images/loss_function/LossExampleCalculation.png"></p>
+<p>The overall loss for a batch of data is then simply the mean of the loss scores for the individual items in the batch:</p>
+<p><img alt="BCE mean calculation" src="/images/loss_function/LossMeanCalculation.png"></p>
+<p><em>Side-note: the negative log of a probability is known as the information content ("self information") of an event. So, l<sub>n</sub> ends up being the sum of the information content contributed by each of the categories.</em></p>
+<h1>Leave out labels for input examples?</h1>
+<p>The binary cross entropy loss function requires each item to be labelled for every category. However, <em><strong>it would be really nice</strong></em> to be able to leave out labels - perhaps even only labelling a single category per input example. This would make it much easier to accrue positive and negative examples.</p>
+<p>There are at least two phases of data collection where such a technique could prove useful. When initially creating a training dataset, one could seek out candidate positive and negative examples for a given category, and then manually review them to confirm or flip the candidate label for each item. The technique could also prove useful when improving the dataset, as it would allow one to seek out particularly tricky postive and negative examples for a particular category, and to only have to label the given category for those examples.</p>
+<p>If we don't have a technique allowing us to leave out labels, then we would be forced to provide labels for all other categories, which can increase the labelling burden by a factor of <em>C</em>.</p>
+<p>A simple approach here would be to simply train <em>C</em> separate binary classifiers, and to combine them into one classifier after they are each trained individually. However, this approach is somewhat inelegant, and could be wasteful in terms of memory and compute. Furthermore, model weights are not shared, which means that there is no possibility for data from one task to inform the classifier for another task.</p>
+<h1>Custom loss function</h1>
+<p>One solution to this problem is to modify the binary cross entropy loss function to ignore specified categories when computing loss for a given input example. This can be implemented by specifying a label "mask" for each input example, as discussed <a href="https://github.com/keras-team/keras/issues/3893">here</a> and <a href="https://www.dlology.com/blog/how-to-multi-task-learning-with-missing-labels-in-keras/">here</a>.</p>
+<p>Here, we illustrate this approach, focusing on the case where only a single category has a label for each training example. Using this approach, the new loss function still accepts logits as the input <em>x</em>, but the label matrix <em>y</em> is modified so that only one category has a label for a given input item, and every other category has a null label of <em>-1</em> for that input example.</p>
+<p><img alt="Modified loss inputs" src="/images/loss_function/ModifiedLossInputs.png"></p>
+<p>The loss for a single item in a batch is then modified to only look at the logit score and label for the non-null category:</p>
+<p><img alt="Modified loss single item" src="/images/loss_function/ModifiedLossFormulaSingleItem.png"></p>
+<p>Here's what that computation would look like for both items from the batch above:</p>
+<p><img alt="Modified loss example calculation" src="/images/loss_function/ModifiedLossExampleCalculation.png"></p>
+<p>Ideally, we'd like to be able to cope with the more general requirement of masking zero or more categories for each input example, even though we may in practice only label one category for each example. The following code snippet implements this more general masking approach in pytorch:</p>
+<div class="code"><pre class="code literal-block"><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="k">class</span> <span class="nc">BCEOnSelectedLogitLoss</span><span class="p">(</span><span class="n">_Loss</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reduction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BCEOnSelectedLogitLoss</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">reduction</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logits</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="c1"># Extract a mask matrix from the labels matrix:</span>
+        <span class="n">mask_symbol</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">labels</span> <span class="o">!=</span> <span class="n">mask_symbol</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">labels</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+        <span class="c1"># Eliminate the mask value (-1) from the labels to avoid numerical problems</span>
+        <span class="c1"># when inputting it to the original loss function:</span>
+        <span class="n">labels_no_mask_values</span> <span class="o">=</span> <span class="n">labels</span> <span class="o">*</span> <span class="n">mask</span>
+
+        <span class="c1"># Get the individual loss function contributions for each category and example:</span>
+        <span class="n">loss_function</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BCEWithLogitsLoss</span><span class="p">(</span><span class="n">reduce</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">loss_without_mask</span> <span class="o">=</span> <span class="n">loss_function</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">labels_no_mask_values</span><span class="p">)</span>
+
+        <span class="c1"># Convert contributions to zero as indicated by the mask values:</span>
+        <span class="n">loss_with_mask</span> <span class="o">=</span> <span class="n">loss_without_mask</span> <span class="o">*</span> <span class="n">mask</span>
+
+        <span class="c1"># Each unmasked category example will contribute equally to the final loss:</span>
+        <span class="n">loss_mean</span> <span class="o">=</span> <span class="n">loss_with_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">loss_mean</span>
+</pre></div>
+
+<p>A quick sanity check confirms that the loss function produces the same result when we run the original loss function on only the selected categories:</p>
+<div class="code"><pre class="code literal-block"><span class="n">bce_loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BCEWithLogitsLoss</span><span class="p">()</span>
+<span class="n">logits_matrix1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">2.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">8.5</span><span class="p">]])</span>
+<span class="n">labels_matrix1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bce_loss</span><span class="p">(</span><span class="n">logits_matrix1</span><span class="p">,</span> <span class="n">labels_matrix1</span><span class="p">))</span>
+
+<span class="n">selected_bce_loss</span> <span class="o">=</span> <span class="n">BCEOnSelectedLogitLoss</span><span class="p">()</span>
+<span class="n">logits_matrix2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">2.5</span><span class="p">,</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span><span class="mf">4.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">5.5</span><span class="p">,</span><span class="mf">6.5</span><span class="p">,</span><span class="mf">7.5</span><span class="p">,</span><span class="o">-</span><span class="mf">8.5</span><span class="p">]])</span>
+<span class="n">labels_matrix2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">selected_bce_loss</span><span class="p">(</span><span class="n">logits_matrix2</span><span class="p">,</span> <span class="n">labels_matrix2</span><span class="p">))</span>
+</pre></div>
+
+<p>Output:</p>
+<div class="code"><pre class="code literal-block">tensor(5.5395, dtype=torch.float64)
+tensor(5.5395, dtype=torch.float64)
+</pre></div>
+
+<p>We gave this modified loss function a spin on an inhouse brand safety classfication dataset, with our model consisting of a simple embedding layer followed by a linear layer (adapted from the pytorch <a href="https://pytorch.org/tutorials/beginner/text_sentiment_ngrams_tutorial.html">text classification tutorial</a>, and similar to the <a href="https://fasttext.cc/docs/en/supervised-tutorial.html">FastText</a> architecture). We confirmed that performance is similar using <em>C</em> separate binary FastText classifiers, as judged by AUC for the individual classifiers.</p>
+<p>So, this does indeed seem to be a viable approach for training a single multi-label classifier from a dataset where each item only includes a label for a single category: it works! 🥳</p>
+<p><em>Note: Results are not shown - out of scope for this blogpost.</em></p>
+<h1>Conclusion</h1>
+<p>Using a custom loss function based on binary cross entropy, one can include selectively labelled examples, without having to label every category. This can reduce the labelling cost by a factor of <em>C = Number of categories</em>, when one only wishes to label a single category for each example. We applied this approach in the context of multilabel text classification, but it is equally applicable to other modalities, such as image data.</p>
+<h1>Acknowledgements</h1>
+<p>Thank you to my colleagues for helpful feedback, especially Nils Törnblom, Egil Martinsson, Björn Schiffler and Réka Gazda.</p>
+<h2><em>Social media:</em></h2>
+<p>If you would like to get in touch, here's my social media:</p>
+<ul>
+<li>LinkedIn: <a href="https://www.linkedin.com/in/tomwhitington">https://www.linkedin.com/in/tomwhitington</a></li>
+<li>Twitter: <a href="https://twitter.com/Tom_Whitington">@Tom_Whitington</a></li>
+<li>Mastodon: @tomwhitington@sigmoid.social</li>
+</ul>
