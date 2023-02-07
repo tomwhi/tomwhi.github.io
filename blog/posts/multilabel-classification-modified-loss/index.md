@@ -12,6 +12,9 @@
 # tl;dr
 One can dramatically reduce the cost of labelling data for a multi-label classifier, using a custom loss function adapted from binary cross entropy.
 
+![Stable Diffusion](/images/loss_function/IrritatedLabelledSheep.jpg)
+_(Stable diffusion - an irritated sheep in a paddock, covered in yellow postit notes)_
+
 # Labelling data is expensive
 Supervised learning requires labelled data, and manually labelling examples - for example identifying categories for documents - can be expensive.
 
